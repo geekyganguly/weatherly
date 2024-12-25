@@ -8,13 +8,15 @@ import {
   RefreshControl,
 } from "react-native";
 
-import { useCurrentWeather } from "@/hooks/weather";
 import { useStorage } from "@/hooks/storage";
+import { useCurrentWeather } from "@/hooks/weather";
+import { useNetworkStatus } from "@/hooks/network-status";
 
 export default function DetailsScreen() {
   const theme = useTheme();
   const { lat, lng } = useLocalSearchParams();
   const { tempUnit, windUnit, pressureUnit } = useStorage();
+  const { isConnected } = useNetworkStatus();
 
   const {
     data: weather,
@@ -33,6 +35,7 @@ export default function DetailsScreen() {
           progressBackgroundColor={theme.colors.background}
           tintColor={theme.colors.secondary}
           colors={[theme.colors.primary]}
+          enabled={isConnected}
         />
       }
     >

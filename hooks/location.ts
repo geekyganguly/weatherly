@@ -1,13 +1,11 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import {
-  requestForegroundPermissionsAsync,
-  getCurrentPositionAsync,
-} from "expo-location";
+import * as ExpoLocation from "expo-location";
 
-import { useDebounce } from "@/hooks/debounce";
-import { searchLocation } from "@/api/location";
 import { Location } from "@/types/location";
+import { searchLocation } from "@/api/location";
+import { useDebounce } from "@/hooks/debounce";
+import { useNetworkStatus } from "@/hooks/network-status";
 
 export function useCurrentLocation() {
   const [isLoading, setIsLoading] = useState(false);
@@ -16,12 +14,12 @@ export function useCurrentLocation() {
     setIsLoading(true);
 
     try {
-      const { status } = await requestForegroundPermissionsAsync();
+      const { status } = await ExpoLocation.requestForegroundPermissionsAsync();
       if (status !== "granted") {
         throw new Error("Permission to access location was denied");
       }
 
-      const location = await getCurrentPositionAsync({});
+      const location = await ExpoLocation.getCurrentPositionAsync({});
       setIsLoading(false);
       return location;
     } catch (e) {
@@ -35,11 +33,12 @@ export function useCurrentLocation() {
 }
 
 export const useSearchLocation = (query: string) => {
+  const { isConnected } = useNetworkStatus();
   const debouncedQuery = useDebounce(query);
 
   return useQuery<Location[]>({
     queryKey: ["locations", debouncedQuery],
     queryFn: () => searchLocation(debouncedQuery),
-    enabled: debouncedQuery.length >= 2,
+    enabled: debouncedQuery.length >= 2 && isConnected,
   });
 };
