@@ -10,13 +10,10 @@ import { ThemedAppBar } from "@/components/app-bar";
 import { SnackbarProvider } from "@/providers/snackbar";
 import { StorageProvider } from "@/providers/storage";
 
-const queryClient = new QueryClient({
-  defaultOptions: {},
-});
+const queryClient = new QueryClient();
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
-
   const paperTheme = colorScheme === "dark" ? MD3DarkTheme : MD3LightTheme;
 
   return (
