@@ -1,6 +1,6 @@
 # Weatherly
 
-A mobile weather application built with React Native, Expo, React Native Paper and WeatherAPI.
+A mobile weather application built with React Native and WeatherAPI.
 
 ## Features
 
@@ -11,11 +11,18 @@ A mobile weather application built with React Native, Expo, React Native Paper a
 - Pull-to-refresh updates
 - Unit switching (Celsius/Fahrenheit)
 
+## Tech Stack
+
+- React Native
+- Expo
+- React Native Paper
+- Tanstack React Query
+- WeatherAPI
+
 ## Prerequisites
 
-- Node.js (v16 or newer)
-- npm or yarn
-- Expo CLI
+- Node.js (v22 or newer)
+- Yarn
 - [WeatherAPI](https://www.weatherapi.com) API key
 
 ## Setup
@@ -36,39 +43,22 @@ yarn install
 3. Create a `.env` file in the root directory:
 
 ```
-EXPO_PUBLIC_API_KEY=your_api_key_here
+EXPO_PUBLIC_API_KEY=weather_api_key
 ```
 
-5. Start the development server:
+4. Start the development server:
 
 ```bash
-npx expo start
+npx expo start -g
 ```
 
-## API Integration
+5. Run the app:
 
-The app uses WeatherAPI. Get your API key from [weatherapi.com](https://www.weatherapi.com).
-
-## Available Scripts
-
-- `yarn start`: Start the Expo server
-- `yarn android`: Run on Android
-- `yarn ios`: Run on iOS
-- `yarn web`: Run on web browser
-
-## Environment Setup
-
-### iOS Development
-
-1. Install Xcode
-2. Install iOS Simulator
-3. Run `npx pod-install`
-
-### Android Development
-
-1. Install Android Studio
-2. Setup Android Emulator
-3. Configure environment variables
+   - For iOS Simulator: Press `i` in the terminal after starting the development server
+   - For Android Emulator: Press `a` in the terminal after starting the development server
+   - For development on a physical device:
+     - Install the Expo Go app from the App Store or Play Store
+     - Scan the QR code from the terminal with your device's camera
 
 ## Troubleshooting
 
@@ -76,4 +66,4 @@ Common issues:
 
 - Location permission denied: Enable location services
 - API key errors: Verify .env configuration
-- Build errors: Clear cache with `npx expo start -c`
+- Build errors: Clear cache with `npx expo start -g -c`
